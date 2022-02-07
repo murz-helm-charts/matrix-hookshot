@@ -92,7 +92,8 @@ hookshot:
       enabled: false
       urlPrefix: https://example.com/mywebhookspath/
       allowJsTransformationFunctions: false
-      userIdPrefix: webhooks_
+      # This prefix should match regex in `namespaces.users` from `registration.yml`
+      userIdPrefix: _webhook_
     figma:
       # (Optional) Configure this to enable Figma support
       #

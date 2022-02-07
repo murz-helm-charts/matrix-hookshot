@@ -1,0 +1,26 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: matrix-hookshot helm package
+name: matrix-hookshot
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+keywords:
+- matrix-hookshot
+- matrix
+- synapse
+
+home: https://github.com/murz-helm-charts/matrix-hookshot
+# icon: https://example.com/icon
+sources:
+- https://github.com/Half-Shot/matrix-hookshot
+maintainers:
+- name: Alexey Murz Korepov
+  email: MurzNN@gmail.com
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.3.0
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial version

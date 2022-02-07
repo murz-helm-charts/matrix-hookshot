@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-config
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+stringData:
+  configuration.yaml: |
+{{- with .Values.hookshot.config.configuration }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}

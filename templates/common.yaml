@@ -1,0 +1,53 @@
+{{/* First Make sure all variables are set and merged properly */}}
+{{- include "common.values.setup" . }}
+
+{{/* Append the hardcoded settings */}}
+
+{{/* Append the configMap volume to the volumes */}}
+
+{{- define "hookshot.volumes.config" -}}
+enabled: "true"
+mountPath: "/data/config.yml"
+subPath: "config.yml"
+type: "custom"
+volumeSpec:
+  configMap:
+    name: {{ include "common.names.fullname" . }}-config
+{{- end -}}
+{{- $_ := set .Values.persistence "config" (include "hookshot.volumes.config" . | fromYaml) -}}
+
+{{- define "hookshot.volumes.registration" -}}
+enabled: "true"
+mountPath: "/data/registration.yml"
+subPath: "registration.yml"
+type: "custom"
+volumeSpec:
+  secret:
+    secretName: {{ include "common.names.fullname" . }}-registration
+{{- end -}}
+{{- $_ := set .Values.persistence "registration" (include "hookshot.volumes.registration" . | fromYaml) -}}
+
+{{- define "hookshot.volumes.passkey" -}}
+enabled: "true"
+mountPath: "/data/passkey.pem"
+subPath: "passkey.pem"
+type: "custom"
+volumeSpec:
+  secret:
+    secretName: {{ include "common.names.fullname" . }}-passkey
+{{- end -}}
+{{- $_ := set .Values.persistence "passkey" (include "hookshot.volumes.passkey" . | fromYaml) -}}
+
+{{/* Add checksums of dependent files */}}
+
+{{- define "hookshot.checksums" -}}
+{{/* merge Values specific annotations with podAnnotations*/}}
+podAnnotations:
+  checksum/config: "{{ .Values.hookshot.config.configuration | toYaml | sha256sum }}"
+  checksum/registration: "{{ .Values.hookshot.secrets.registration | toYaml | sha256sum }}"
+  checksum/passkey: "{{ .Values.hookshot.secrets.passkey | sha256sum }}"
+{{- end }}
+{{- $_ := mergeOverwrite .Values (include "hookshot.checksums" . | fromYaml) -}}
+
+{{/* Render the templates */}}
+{{ include "common.all" . }}

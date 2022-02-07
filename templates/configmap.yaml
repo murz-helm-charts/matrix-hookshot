@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}-config
   labels:
     {{- include "common.labels" . | nindent 4 }}
-stringData:
+data:
   configuration.yaml: |
 {{- with .Values.hookshot.config.configuration }}
     {{- toYaml . | nindent 4 }}

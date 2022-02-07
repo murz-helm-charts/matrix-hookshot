@@ -5,6 +5,15 @@
 
 {{/* Append the configMap volume to the volumes */}}
 
+{{- define "hookshot.volumes.dataDir" -}}
+enabled: "true"
+mountPath: "/data"
+type: "custom"
+volumeSpec:
+  emptyDir: {}
+{{- end -}}
+{{- $_ := set .Values.persistence "dataDir" (include "hookshot.volumes.dataDir" . | fromYaml) -}}
+
 {{- define "hookshot.volumes.config" -}}
 enabled: "true"
 mountPath: "/data/config.yml"

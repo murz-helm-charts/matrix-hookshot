@@ -52,7 +52,7 @@ volumeSpec:
 {{- define "hookshot.checksums" -}}
 {{/* merge Values specific annotations with podAnnotations*/}}
 podAnnotations:
-  checksum/config: "{{ .Values.hookshot.config.configuration | toYaml | sha256sum }}"
+  checksum/config: "{{ .Values.hookshot.config | toYaml | sha256sum }}"
   checksum/registration: "{{ .Values.hookshot.secrets.registration | toYaml | sha256sum }}"
   checksum/passkey: "{{ .Values.hookshot.secrets.passkey | sha256sum }}"
 {{- end }}

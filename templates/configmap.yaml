@@ -6,6 +6,6 @@ metadata:
     {{- include "common.labels" . | nindent 4 }}
 data:
   configuration.yaml: |
-{{- with .Values.hookshot.config.configuration }}
+{{- with .Values.hookshot.config }}
     {{- toYaml . | nindent 4 }}
 {{- end }}

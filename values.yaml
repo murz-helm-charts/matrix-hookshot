@@ -7,7 +7,7 @@
 
 hookshot:
   secrets:
-    registration:
+    registration: |
       # Example: https://github.com/Half-Shot/matrix-hookshot/blob/main/registration.sample.yml
       id: matrix-hookshot # This can be anything, but must be unique within your homeserver
       as_token: aaaaaaaaaa # This again can be a random string
@@ -36,8 +36,8 @@ hookshot:
       -----END PRIVATE KEY-----
 
   # Config documentation: https://half-shot.github.io/matrix-hookshot/setup/sample-configuration.html#sample-configuration
-  config:
-      # This is an example configuration file
+  config: |
+    # This is an example configuration file
 
     bridge:
       # Basic homeserver configuration
